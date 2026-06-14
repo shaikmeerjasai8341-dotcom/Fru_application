@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard - FreshSip</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ── TOP NAV ── -->
+<nav class="navbar">
+    <div class="nav-brand">
+        <span class="nav-logo">🥤</span>
+        <span class="nav-title">FreshSip</span>
+    </div>
+    <div class="nav-links">
+        <a href="#menu" class="nav-link active">Menu</a>
+        <a href="#" class="nav-link">My Orders</a>
+        <a href="#" class="nav-link">About</a>
+    </div>
+    <div class="nav-user">
+        <div class="user-avatar">{{ username[0].upper() }}</div>
+        <span class="user-name">{{ username }}</span>
+        <a href="/login" class="logout-btn">Logout</a>
+    </div>
+</nav>
+
+<!-- ── HERO BANNER ── -->
+<section class="hero">
+    <div class="hero-content">
+
+    <p class="hero-eyebrow">🍹 Welcome Back</p>
+
+    <h1 class="hero-headline">
+        Hello <span>{{ username }}</span> 👋<br>
+        Welcome to <span>FreshSip Juice Market</span>
+    </h1>
+
+    <p class="hero-sub">
+        Discover the freshest fruit juices made from premium farm-picked fruits.
+        Refresh your day with healthy, delicious, and natural drinks crafted just for you.
+    </p>
+
+    <a href="#menu" class="hero-cta">
+        Explore Our Juices 🍊
+    </a>
+
+</div>
+    <div class="hero-fruits">
+        <span class="hf hf1">🍊</span>
+        <span class="hf hf2">🍋</span>
+        <span class="hf hf3">🍓</span>
+        <span class="hf hf4">🥭</span>
+        <span class="hf hf5">🍇</span>
+        <span class="hf hf6">🍍</span>
+    </div>
+</section>
+
+<!-- ── MENU SECTION ── -->
+<section class="menu-section" id="menu">
+    <div class="section-header">
+        <h2>Our Fresh Menu</h2>
+        <p>Every bottle squeezed to order</p>
+    </div>
+
+    <div class="juice-grid">
+
+        {% set juices = [
+            {"id": "orange",     "emoji": "🍊", "name": "Orange Burst",     "price": 79,  "tag": "Best Seller",  "color": "#FF6B2B"},
+            {"id": "mango",      "emoji": "🥭", "name": "Mango Bliss",      "price": 99,  "tag": "Seasonal",     "color": "#FFC93C"},
+            {"id": "strawberry", "emoji": "🍓", "name": "Strawberry Dream",  "price": 119, "tag": "Fan Favourite","color": "#FF6B8A"},
+            {"id": "grape",      "emoji": "🍇", "name": "Grape Refresh",    "price": 89,  "tag": "Antioxidant",  "color": "#9B59B6"},
+            {"id": "pineapple",  "emoji": "🍍", "name": "Pineapple Zing",   "price": 109, "tag": "Tropical",     "color": "#52C174"},
+            {"id": "lemon",      "emoji": "🍋", "name": "Lemon Detox",      "price": 69,  "tag": "Detox",        "color": "#E8D44D"},
+            {"id": "watermelon", "emoji": "🍉", "name": "Watermelon Chill", "price": 89,  "tag": "Summer Hit",   "color": "#FF4757"},
+            {"id": "apple",      "emoji": "🍏", "name": "Apple Crisp",      "price": 79,  "tag": "Classic",      "color": "#2ECC71"}
+        ] %}
+
+        {% for juice in juices %}
+        <div class="juice-card" style="--accent: {{ juice.color }}">
+            <div class="card-badge">{{ juice.tag }}</div>
+            <div class="card-fruit">{{ juice.emoji }}</div>
+            <div class="card-body">
+                <h3 class="card-name">{{ juice.name }}</h3>
+                <p class="card-price">₹{{ juice.price }} <span>/ 300ml</span></p>
+                <a href="/order/{{ juice.id }}" class="card-btn">Order Now →</a>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+
+    <h3>🥤 FreshSip Juice Market</h3>
+
+    <p><strong>Owner:</strong> SK Meerjasai</p>
+
+    <p><strong>Email:</strong> shaikmeerja@gmail.com</p>
+
+    <p><strong>Mobile:</strong> 8341993350</p>
+
+    <p>
+        <strong>Address:</strong><br>
+         Kavali,<br>
+        Nellore District,<br>
+        Andhra Pradesh, India
+    </p>
+
+    <p class="copyright">
+        © 2025 FreshSip — Cold-pressed with love ❤️
+    </p>
+
+</footer>
+
+</body>
+</html>

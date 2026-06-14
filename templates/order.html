@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Order {{ juice.name }} - FreshSip</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="navbar">
+    <div class="nav-brand">
+        <span class="nav-logo">🥤</span>
+        <span class="nav-title">FreshSip</span>
+    </div>
+    <div class="nav-links">
+        <a href="/dashboard" class="nav-link">← Back to Menu</a>
+    </div>
+    <div class="nav-user">
+        <div class="user-avatar">{{ username[0].upper() }}</div>
+        <span class="user-name">{{ username }}</span>
+        <a href="/login" class="logout-btn">Logout</a>
+    </div>
+</nav>
+
+<!-- ── ORDER PAGE ── -->
+<section class="order-page">
+
+    <!-- Left: Juice Info -->
+    <div class="order-info" style="--accent: {{ juice.color }}">
+        <div class="order-fruit-display">{{ juice.emoji }}</div>
+        <div class="order-badge">{{ juice.tag }}</div>
+        <h1 class="order-name">{{ juice.name }}</h1>
+        <p class="order-price-big">₹{{ juice.price }} <span>/ 300ml</span></p>
+        <p class="order-desc">{{ juice.description }}</p>
+
+        <div class="order-benefits">
+            <div class="benefit"><span>🌿</span> 100% Natural</div>
+            <div class="benefit"><span>❄️</span> Cold-Pressed</div>
+            <div class="benefit"><span>🚫</span> No Sugar Added</div>
+            <div class="benefit"><span>⚡</span> Rich in Vitamins</div>
+        </div>
+    </div>
+
+    <!-- Right: Order Form -->
+    <div class="order-form-card">
+        <h2>Place Your Order</h2>
+
+        {% if success %}
+            <div class="order-success">
+                🎉 {{ success }}
+            </div>
+        {% endif %}
+
+        {% if error %}
+            <div class="order-error">⚠ {{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <input type="hidden" name="juice_id"    value="{{ juice.id }}">
+            <input type="hidden" name="juice_name"  value="{{ juice.name }}">
+            <input type="hidden" name="juice_price" value="{{ juice.price }}">
+
+            <!-- Quantity -->
+            <div class="form-group">
+                <label>Quantity</label>
+                <div class="qty-selector">
+                    <button type="button" class="qty-btn" onclick="changeQty(-1)">−</button>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="20" readonly>
+                    <button type="button" class="qty-btn" onclick="changeQty(1)">+</button>
+                </div>
+                <p class="qty-total">Total: ₹<span id="total">{{ juice.price }}</span></p>
+            </div>
+
+            <div class="form-divider"><span>Customer Details</span></div>
+
+            <div class="form-group">
+                <label for="cust_name">Full Name</label>
+                <input type="text" id="cust_name" name="cust_name" placeholder="Your full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cust_phone">Phone Number</label>
+                <input type="tel" id="cust_phone" name="cust_phone" placeholder="+91 98765 43210" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cust_address">Delivery Address</label>
+                <textarea id="cust_address" name="cust_address" rows="3" placeholder="House no, street, city..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="cust_notes">Special Instructions <span class="optional">(optional)</span></label>
+                <input type="text" id="cust_notes" name="cust_notes" placeholder="e.g. Extra cold, less ice...">
+            </div>
+
+            <button type="submit" class="place-order-btn">
+                🧃 Place Order
+            </button>
+        </form>
+    </div>
+
+</section>
+
+<footer class="footer">
+    <span>🥤 FreshSip © 2025 — Cold-pressed with love</span>
+</footer>
+
+<script>
+    const price = {{ juice.price }};
+    function changeQty(delta) {
+        const input = document.getElementById('quantity');
+        let val = parseInt(input.value) + delta;
+        if (val < 1) val = 1;
+        if (val > 20) val = 20;
+        input.value = val;
+        document.getElementById('total').textContent = (val * price).toLocaleString('en-IN');
+    }
+</script>
+
+</body>
+</html>

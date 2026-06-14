@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - FreshSip</title>
+    <link rel="stylesheet" href="/static/login.css">
+</head>
+
+<body>
+
+<div class="page-bg">
+    <span class="blob blob-1">🍊</span>
+    <span class="blob blob-2">🍋</span>
+    <span class="blob blob-3">🍓</span>
+    <span class="blob blob-4">🥭</span>
+</div>
+
+<div class="form-container">
+
+    <div class="brand-header">
+        <div class="brand-icon">🥤</div>
+        <h1 class="brand-name">FreshSip</h1>
+        <p class="brand-sub">Cold-pressed, farm-fresh juices</p>
+    </div>
+
+    <h2>Welcome back!</h2>
+
+    {% if error %}
+        <p class="error">⚠ {{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+
+        <div class="field">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+        </div>
+
+        <div class="field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        </div>
+
+        <div class="forgot-row">
+            <a href="/forgot-password" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <button type="submit">Log in 🍹</button>
+
+    </form>
+
+    <p class="signup-link">Don't have an account? <a href="/signup">Sign up</a></p>
+
+</div>
+
+</body>
+</html>
